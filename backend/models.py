@@ -17,18 +17,20 @@ class Profile(Base):
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
     skills = Column(JSON, default=[])
     niche = Column(String)
-    experience_level = Column(String)
+    experience_level = Column(String)        # junior / mid / senior
     preferred_rate_min = Column(Integer)
     preferred_rate_max = Column(Integer)
-    preferred_job_type = Column(String)
-    writing_samples = Column(Text)
-    tone_summary = Column(Text)
+    preferred_job_type = Column(String)      # fixed / hourly / both
+    preferred_job_size = Column(String)      # small / medium / large
+    writing_samples = Column(Text)           # raw samples — used once
+    tone_summary = Column(Text)              # AI extracted — used every proposal
     portfolio = Column(JSON, default=[])
     keywords_include = Column(JSON, default=[])
     keywords_exclude = Column(JSON, default=[])
     runs_used = Column(Integer, default=0)
     runs_limit = Column(Integer, default=3)
     is_active = Column(Boolean, default=True)
+    updated_at = Column(DateTime, default=datetime.utcnow)
 
 class SeenJob(Base):
     __tablename__ = "seen_jobs"

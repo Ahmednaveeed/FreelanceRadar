@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import profile
 from database import engine, Base
+import models
 
-Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="FreelanceRadar API")
 
@@ -18,4 +19,4 @@ app.include_router(profile.router)
 
 @app.get("/")
 def root():
-    return {"status": "FreelanceRadar backend is running"}
+    return {"status": "FreelanceRadar backend is running ✅"}
