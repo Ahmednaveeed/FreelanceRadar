@@ -1,6 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from services.email_service import send_job_email
 
 import schedule
 import time
@@ -135,11 +136,22 @@ def run_cycle():
 
             if matches:
                 print(f"  → {len(matches)} match(es) found — sending email")
-                # Email sending comes in Phase 4
-                # For now just print
+                
                 for m in matches:
                     print(f"  → MATCH: {m['job']['title']} (Score: {m['score']})")
-                    print(f"     Proposal preview: {m['proposal'][:100]}...")
+                    print(f"  → Sending email to {user.email} for job: {m['job']['title']}")
+                    send_job_email(
+                        to_email=user.email,
+                        user_name=user.name,
+                        job=m["job"],
+                        score=m["score"],
+                        summary=m["summary"],
+                        reasons=m["reasons"],
+                        proposal=m["proposal"],
+                        portfolio_picks=m["portfolio_picks"],
+                        runs_used=profile.runs_used + 1,
+                        runs_limit=profile.runs_limit
+                    )
 
             # Increment run counter
             profile.runs_used += 1
