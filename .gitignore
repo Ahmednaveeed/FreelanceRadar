@@ -17,8 +17,13 @@ htmlcov/
 backend/venv/
 backend/.env
 
-# Frontend (Next.js / Node)
-frontend/node_modules/
+# Node.js / Packages
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend (Next.js)
 frontend/.next/
 frontend/out/
 frontend/.turbo/
